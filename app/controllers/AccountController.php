@@ -940,7 +940,8 @@ class AccountController extends BaseController {
 
 	/* Fetch Roll Number from Wilkommen based on Email ID */
 	public function getRollnumberWilkommen($emailid) {
-		$getRollnumberWilkommen = DB::table('import_wilkommen')->where('emailid', $emailid)->first();
+		//$getRollnumberWilkommen = DB::table('import_wilkommen')->where('emailid', $emailid)->first();
+		$getRollnumberWilkommen = null;
 		if(!is_null($getRollnumberWilkommen)) {	
 			$rollnumberCaps = strtoupper($getRollnumberWilkommen->rollnumber);
 			return $rollnumberCaps;	
@@ -951,7 +952,9 @@ class AccountController extends BaseController {
 	}
 	/* Fetch Phone Number from Wilkommen based on Email ID */
 	public function getPhonenumberWilkommen($emailid) {
-		$getPhonenumberWilkommen = DB::table('import_wilkommen')->where('emailid', $emailid)->first();
+		//$getPhonenumberWilkommen = DB::table('import_wilkommen')->where('emailid', $emailid)->first();
+		$getPhonenumberWilkommen = null;
+		
 		if(!is_null($getPhonenumberWilkommen)) {	
 			return $getPhonenumberWilkommen->phone;	
 		} else { 
