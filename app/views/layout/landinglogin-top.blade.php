@@ -19,12 +19,17 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#accomodation">Accomodation</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
-                    </li>
+                    </li>                    
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#">Blog</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" data-toggle="modal" data-target="#myModalLogin" href="#">
+                          Login
+                        </a>
                     </li>
                 </ul>
             </div>
