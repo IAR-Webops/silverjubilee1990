@@ -57,6 +57,10 @@ class PostController extends BaseController {
         
 		$posts = DB::table('posts')->get();
 
+        foreach ($posts as $post){
+            $user = User::find($post->user_id);
+        }
+
 		View::share('posts',$posts);	
 
         return View::make('post.index');
