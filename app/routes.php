@@ -146,6 +146,12 @@ Route::group(array('before' => 'auth'), function() {
 			'uses' => 'AccountController@getSignOut'
 	));
 
+	/* Sign out (GET) */
+	Route::get('/posts/new', 
+		array('as' => 'new-post-blog',
+			'uses' => 'PostController@newPost'
+	));
+
 	/* Home Page (GET) */
 	Route::get('/', 
 	  array('as' => 'home', 
