@@ -4,7 +4,7 @@
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-7">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <a class="navbar-brand" href="{{ URL::route('home') }}">#iitmconnect</a>
+          <a class="navbar-brand" href="{{ URL::route('home') }}">Silver Jubilee Portal</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

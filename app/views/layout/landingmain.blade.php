@@ -14,16 +14,23 @@
 
         <link rel="icon" href="{{ URL::asset('img/IIT_Madras_Logo_30.png') }}" type="image/x-icon" />
         <!-- END META SECTION -->
-        {{ HTML::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'); }}             
+        {{ HTML::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'); }}             
         <!-- CSS INCLUDE -->  
         <!-- Loading Bootstrap -->
+        <!-- Custom Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
-        <!-- Loading Flat UI -->
-        {{ HTML::style('css/flat-ui.min.css'); }}     
 
         <!-- Loading Font Awesome and Social Bootstrap -->
         {{ HTML::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'); }}             
-        {{ HTML::style('css/bootstrap-social.css'); }}     
+        {{ HTML::style('css/bootstrap-social.css'); }}   
+
+        <!-- Plugin CSS -->
+        {{ HTML::style('css/animate.min.css'); }}     
+
+        <!-- Custom CSS -->
+        {{ HTML::style('css/creative.css'); }}     
 
         <!-- EOF CSS INCLUDE -->      
 
@@ -33,54 +40,28 @@
           {{ HTML::script('js/vendor/respond.min.js'); }} 
         <![endif]-->                               
     </head>                                        
-	<body>
-        @include('layout.js.sdkanalytics')
-		
-        @if(Auth::check())
-
-            @include('layout.navigation-top')
-		
-        @endif
-
-			@yield('content')
-
-		@if(Auth::check())
-
-            @include('layout.navigation-bottom')
-        
-        @endif
-		
-        
-       
+	<body id="page-top">
+	   
+            @yield('content')
 
 
+    	
 
     <!-- START SCRIPTS -->
 
         <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
         {{ HTML::script('js/vendor/jquery.min.js'); }}        
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        {{ HTML::script('js/vendor/video.js'); }}
-        {{ HTML::script('js/flat-ui.min.js'); }} 
-        {{ HTML::script('js/application.js'); }} 
-        {{ HTML::script('js/notify.min.js'); }} 
-        <!-- Search Box -->
-        <script src="{{ URL::asset('js/typeahead.bundle.js') }}"></script>        
-        <script src="{{ URL::asset('js/handlebars-v3.0.3.js') }}"></script>
+        
+        {{ HTML::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'); }}
 
-
-        @yield('jsmainbodycontent')
-        @yield('jsleftnavcontent')
-        @yield('jscontent')
-
-        @include('layout.js.searchboxtop')
-
-        @if(Session::has('globalalertmessage'))
-            <script type="text/javascript">
-                $.notify("{{ Session::get('globalalertmessage') }}", "{{ Session::get('globalalertclass') }}");
-            </script>
-        @endif
-
+        <!-- Plugin JavaScript -->
+        {{ HTML::script('js/jquery.easing.min.js'); }}
+        {{ HTML::script('js/jquery.fittext.js'); }} 
+        {{ HTML::script('js/wow.min.js'); }}
+        
+        <!-- Custom Theme JavaScript -->
+        {{ HTML::script('js/creative.js'); }} 
 
      
     </body>
