@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration {
                   $table->integer('user_id');            
                   $table->string('title');
                   
-                  $table->string('content');
+                  $table->text('content');
 
                   $table->string('created_at');
                   $table->string('updated_at');

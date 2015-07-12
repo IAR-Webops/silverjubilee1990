@@ -105,7 +105,7 @@ Route::group(array('before' => 'auth'), function() {
         /* Create a Blog Post after submit (POST) */
 		Route::post('/posts/create', 
 			array('as' => 'create-blog-post',
-				'uses' => 'PostController@create'
+				'uses' => 'PostController@createPost'
 		));
 
 		### Admin
@@ -146,10 +146,16 @@ Route::group(array('before' => 'auth'), function() {
 			'uses' => 'AccountController@getSignOut'
 	));
 
-	/* Sign out (GET) */
+	/* New Post Page (GET) */
 	Route::get('/posts/new', 
 		array('as' => 'new-post-blog',
 			'uses' => 'PostController@newPost'
+	));
+
+	/* Posts Index Page (GET) */
+	Route::get('/posts', 
+		array('as' => 'post-index',
+			'uses' => 'PostController@index'
 	));
 
 	/* Home Page (GET) */

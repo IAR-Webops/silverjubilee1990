@@ -24,13 +24,8 @@ class PostController extends BaseController {
 
         $validator = Validator::make(Input::all(),
             array(
-                'fathersname' 		=> 'required',
-                'mothersname'		=> 'required',
-                'permaddline1'		=> 'required',
-                'permcity'			=> 'required',
-                'permstate'			=> 'required',
-                'permpincode'		=> 'required',
-                'permcountry'		=> 'required'
+                'title' 		=> 'required',
+                'content'		=> 'required',
             )
         );
 
@@ -45,7 +40,26 @@ class PostController extends BaseController {
 
 			$title 			= Input::get('title');
 			$content 			= Input::get('content');
+
+            $postdata = Post::create(array(
+                'user_id'				=> $user_id,				
+                'title' 			=> $title,			
+                'content'			=> $content,
+            ));
+
+            return Redirect::route('post-index')
+                ->with('globalalertmessage', 'New blog post created')
+                ->with('globalalertclass', 'success');
         }
+    }
+
+    public function index(){
+        
+		$post = DB::table('posts')->get();
+
+		View::share('post',$post);	
+
+        return View::make('post.index');
     }
 }
 
