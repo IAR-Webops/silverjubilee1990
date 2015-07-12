@@ -9,7 +9,7 @@
 				<!-- END - Navigation Left -->
 
 				<!-- START - Main Body -->
-			  		<div class="col-sm-12 col-md-8 col-lg-9">
+			  		<div class="col-sm-12 col-md-12 col-lg-12">
 						@yield('mainbodycontent')
 			  		</div>
 				<!-- END - Main Body -->

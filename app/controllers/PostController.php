@@ -55,9 +55,9 @@ class PostController extends BaseController {
 
     public function index(){
         
-		$post = DB::table('posts')->get();
+		$posts = DB::table('posts')->get();
 
-		View::share('post',$post);	
+		View::share('posts',$posts);	
 
         return View::make('post.index');
     }
