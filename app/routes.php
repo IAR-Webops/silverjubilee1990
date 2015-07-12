@@ -102,6 +102,12 @@ Route::group(array('before' => 'auth'), function() {
 				'uses' => 'PageController@postEventsQuestionsAnwsers'
 		));
 
+        /* Create a Blog Post after submit (POST) */
+		Route::post('/posts/create', 
+			array('as' => 'create-blog-post',
+				'uses' => 'PostController@create'
+		));
+
 		### Admin
 		/* Events Questions Answers Page (POST) */
 		Route::post('/admin/eventmanagement', 
