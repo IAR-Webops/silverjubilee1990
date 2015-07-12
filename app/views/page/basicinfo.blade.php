@@ -2,7 +2,7 @@
 
 @section('mainbodycontent')
 	
-		<div class="col-sm-12 col-md-11">
+		<div class="col-sm-12 col-md-12">
           <h4>Basic Information</h4>        	
           <hr>
           <form action="{{ URL::route('basic-info-post') }}" class="form-horizontal" role="form" method="post">
@@ -27,7 +27,7 @@
 		            </div>
 	            </div>
             </div>
-          	<!-- Field - Department and Minor -->
+          	<!-- Field - Department and Hostel -->
           	<div class="form-group">
           		<div class="col-sm-12 col-md-6">
 		            <select data-toggle="select" class="form-control select select-default" name="department" id="department" required>
@@ -44,17 +44,17 @@
 		            @endif
 		    	</div>
 		    	<div class="col-sm-12 col-md-6">
-		            <select data-toggle="select" class="form-control select select-default" name="minor" id="minor" required>
-		              <optgroup label="Minor">
-		              	@foreach ($static_minors as $static_minor)
-		                <option value="{{$static_minor->minor_name}}">{{$static_minor->minor_name}}</option>		                
+		            <select data-toggle="select" class="form-control select select-default" name="hostel" id="hostel" required>
+		              <optgroup label="Hostel">
+		              	@foreach ($static_hostels as $static_hostel)
+		                <option value="{{$static_hostel->hostel_name}}">{{$static_hostel->hostel_name}}</option>		                
 						@endforeach		                
 		              </optgroup>
 		            </select>
-		            @if(!$basic_info->minor == "")
-		            	<span style="font-size:14px;">Minor Saved : {{ $basic_info->minor }}</span>
+		            @if(!$basic_info->hostel == "")
+		            	<span style="font-size:14px;">Hostel Saved : {{ $basic_info->hostel }}</span>
 		            @else
-		            	<span style="font-size:14px;" >Choose your Minor</span>		            			            
+		            	<span style="font-size:14px;" >Choose your Hostel</span>		            			            
 		            @endif	            
 		    	</div>
 	        </div>
@@ -134,41 +134,12 @@
             <!-- Field - Graduating Year -->
           	<div class="form-group">
           		<div class="col-sm-12 col-md-6">
-		            <select data-toggle="select" class="form-control select select-default" name="graduatingyear" id="graduatingyear" required>
-		              <optgroup label="Graduating Year">
-		              	<option value="2020">2020</option>
-		                <option value="2019">2019</option>
-		                <option value="2018">2018</option>
-		                <option value="2017">2017</option>
-		                <option value="2016">2016</option>
-		                <option value="2015">2015</option>
-		                <option value="2014">2014</option>
-		                <option value="2013">2013</option>
-		                <option value="2012">2012</option>
-		                <option value="2011">2011</option>
-		                <option value="2010">2010</option>
-		                <option value="2009">2009</option>
-		                <option value="2008">2008</option>
-		                <option value="2007">2007</option>
-		                <option value="2006">2006</option>
-		                <option value="2005">2005</option>
-		                <option value="2004">2004</option>
-		                <option value="2003">2003</option>
-		                <option value="2002">2002</option>
-		                <option value="2001">2001</option>
-		                <option value="2000">2000</option>
-		              </optgroup>
-		            </select>
-		            @if(!$basic_info->graduatingyear == "")
-		            	<span style="font-size:14px;">Graduating Year : {{ $basic_info->graduatingyear }}</span>
-		            @else
-		            	<span style="font-size:14px;" >Choose your Graduating Year</span>		            	
-		            @endif
+		              <input type="text" class="form-control" style="display:none;" placeholder="Graduating Year" name="graduatingyear" value="1990" readonly="">
 		    	</div>		    	
 	        </div>
 	        <!-- Field - Future Plans -->
           	<div class="form-group">
-          	<label>Current Job / Current Internship Details :</label>
+          	<label>Current Job Details :</label>
           		<div class="col-sm-12 col-md-12">
           			<label class="radio" for="radio4job">
 		                <input type="radio" name="optionsRadiosFuture" data-toggle="radio" value="Job" id="radio4job" required>
@@ -275,8 +246,8 @@
 			//alert($('#department').val());
 			// Set the Department
 			$('#department').val("{{ $basic_info->department }}");
-			// Set the Minor
-			$('#minor').val("{{ $basic_info->minor }}");
+			// Set the Hostel
+			$('#hostel').val("{{ $basic_info->hostel }}");
 			// Set the Degree Type
 			switch("{{ $basic_info->optionsRadiosDegree }}") {
 			    case "B. Tech":

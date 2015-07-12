@@ -22,6 +22,7 @@ class CreateBasicInfosTable extends Migration {
             $table->string('lastname');
             $table->string('department');
             $table->string('minor');
+            $table->string('hostel');            
             $table->string('optionsRadiosDegree');
             $table->string('projectguide');                                
             $table->string('email');                                

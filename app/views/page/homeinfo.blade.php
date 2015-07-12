@@ -2,7 +2,7 @@
 
 @section('mainbodycontent')
 	
-	<div class="col-sm-12 col-md-11">
+	<div class="col-sm-12 col-md-12">
           <h4>Home Information</h4>        	
           <hr>
           <form action="{{ URL::route('home-info-post') }}" class="form-horizontal" role="form" method="post">

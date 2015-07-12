@@ -33,7 +33,9 @@
             <li class="dropdown" >
               <a href="#" class="dropdown-toggle text-uppercase" data-toggle="dropdown"><span class="fui-user"></span> | {{ Auth::user()->rollno }} <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#"><span class="fui-eye"></span> | View Profile</a></li>
+                <li><a href="{{ URL::route('basic-info') }}"><span class="fui-bookmark"></span> | Basic Information</a></li>
+                <li><a href="{{ URL::route('home-info') }}"><span class="fui-bookmark"></span> | Home Information</a></li>              
+                <!--<li><a href="#"><span class="fui-eye"></span> | View Profile</a></li>-->
                 <li class="divider"></li>
                 <li><a href="{{ URL::route('account-sign-out') }}"><span class="fui-lock"></span> | Sign Out</a></li>
               </ul>

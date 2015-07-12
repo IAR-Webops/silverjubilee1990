@@ -52,8 +52,8 @@ class PageController extends BaseController {
 
 		$static_departments = DB::table('static_departments')->get();
 		View::share('static_departments',$static_departments);
-		$static_minors = DB::table('static_minors')->get();
-		View::share('static_minors',$static_minors);
+		$static_hostels = DB::table('static_hostels')->get();
+		View::share('static_hostels',$static_hostels);
 		
 		$basic_info = DB::table('basic_infos')->where('user_id', $user_id)->first();
 		if(is_null($basic_info)) {
@@ -108,6 +108,7 @@ class PageController extends BaseController {
 			$lastname 				= Input::get('lastname');
 			$department 			= Input::get('department');
 			$minor 					= Input::get('minor');
+			$hostel 				= Input::get('hostel');			
 			$optionsRadiosDegree 	= Input::get('optionsRadiosDegree');
 			$projectguide 			= Input::get('projectguide');
 			$email 					= Input::get('email');
@@ -147,6 +148,7 @@ class PageController extends BaseController {
 						'lastname'				=> $lastname,
 						'department'			=> $department,
 						'minor'					=> $minor,
+						'hostel'				=> $hostel,						
 						'optionsRadiosDegree'	=> $optionsRadiosDegree,
 						'projectguide'			=> $projectguide,
 						'email'					=> $email,
@@ -175,6 +177,7 @@ class PageController extends BaseController {
 					'lastname'				=> $lastname,
 					'department'			=> $department,
 					'minor'					=> $minor,
+					'hostel'				=> $hostel,
 					'optionsRadiosDegree'	=> $optionsRadiosDegree,
 					'projectguide'			=> $projectguide,
 					'email'					=> $email,
