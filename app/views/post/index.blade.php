@@ -7,6 +7,10 @@
                 <div class="col-sm-12 col-md-offset-3 col-md-6">
                   <h4 class="text-center">Blog Home</h4>        	
                   <hr>
+                      <div class="col-sm-6 col-md-4">
+                          <a class="btn btn-primary" href="{{ URL::route('new-post-blog') }}"><span class="fui-new"> | New Post</span></a>
+                      </div>
+                  <br>
                   <br>
                   <div class="col-sm-12">
                     @foreach ($posts as $post)
