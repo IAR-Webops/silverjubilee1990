@@ -69,10 +69,10 @@
                                 Comments:   
                                 <hr>
                                 <div class="new_comment_div">
-                                    <form action="#" onsubmit="newComment({{ $post->id }});" class="form-horizontal" role="form" method="POST">
+                                    <form action="#" onsubmit="newComment({{ $post->id }});" id="comment_form_{{ $post->id }}" class="form-horizontal" role="form" method="POST">
                                         <div class="form-group">
                                             <div class="col-sm-12 col-md-8">
-                                                <input type="textarea" class="form-control" id="comment_content_{{ $post->id }}" name="content" placeholder="Comment *" required>
+                                                <textarea form="comment_form_{{ $post->id }}" class="form-control" id="comment_content_{{ $post->id }}" name="content" placeholder="Comment *" required></textarea>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <input type="submit" class="btn btn-primary" name="submit" value="Submit">
