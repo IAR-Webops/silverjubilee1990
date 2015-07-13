@@ -55,15 +55,34 @@ class PostController extends BaseController {
 
     public function index(){
         
-		$posts = DB::table('posts')->get();
-
-        foreach ($posts as $post){
-            $user = User::find($post->user_id);
-        }
+        $posts = DB::table('posts')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
 		View::share('posts',$posts);	
 
         return View::make('post.index');
+    }
+
+    public function deletePost(){
+
+        $user_id = Auth::id();
+        $post_id = Input::get('post_id');
+
+        $post = DB::table('posts')
+        ->where('id', $post_id)
+        ->where('user_id', $user_id)->first();
+
+        if (!is_null($post)){
+            DB::table('posts')
+            ->where('id', $post_id)
+            ->where('user_id', $user_id)
+            ->delete();
+
+            return "Post deleted";
+        } else {
+            return "Requested post doesn't exist";
+        }
     }
 }
 

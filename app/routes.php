@@ -158,6 +158,12 @@ Route::group(array('before' => 'auth'), function() {
 			'uses' => 'PostController@index'
 	));
 
+    /* Post deleteion (DELETE) */
+    Route::delete('/posts/delete',
+        array('as' => 'blog-post-delete',
+            'uses' => 'PostController@deletePost'
+        ));
+
 	/* Home Page (GET) */
 	Route::get('/', 
 	  array('as' => 'home', 
