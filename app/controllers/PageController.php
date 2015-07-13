@@ -1254,13 +1254,51 @@ class PageController extends BaseController {
 	/* Search (GET) */
 	public function getSearch()
 	{
+
+		$static_departments = DB::table('static_departments')->get();
+		View::share('static_departments',$static_departments);
+		$static_hostels = DB::table('static_hostels')->get();
+		View::share('static_hostels',$static_hostels);
+
 		return View::make('page.search');						
 	}
 
 	/* Search (POST) */
 	public function postSearch()
 	{
-		return "Test";						
+		// return Input::all();
+					
+		$department 	= Input::get('department');
+		$hostel 		= Input::get('hostel');
+		$degreetype 	= Input::get('degreetype');
+		$firstname 		= Input::get('firstname');
+		$lastname 		= Input::get('lastname');
+		$currentaddress = Input::get('currentaddress');
+
+		$basic_infos = DB::table('basic_infos')
+			->where('department', $department)
+			->where('hostel', $hostel)
+			->where('optionsRadiosDegree', $degreetype)
+			->where('firstname', 'LIKE', '%'.$firstname.'%')
+			->where('lastname', 'LIKE', '%'.$lastname.'%')
+			->where('current_city', 'LIKE', '%'.$currentaddress.'%')
+
+			->get();
+		//return ($basic_infos);
+		if(!empty($basic_infos)) {
+			//View::share('basic_infos',$basic_infos);
+
+			return Redirect::route('search')
+				->with('basic_infos', $basic_infos)
+				->with('globalalertmessage', 'Result Found')
+				->with('globalalertclass', 'success');
+		} else {
+
+			return Redirect::route('search')
+				->with('globalalertmessage', 'No Results Found')
+				->with('globalalertclass', 'error');
+		}
+
 	}
 
 }
