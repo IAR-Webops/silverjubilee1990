@@ -70,6 +70,7 @@
                                 </div>
                                 <hr>
                                 <?php $comments = DB::table('comments')->where('post_id', $post->id)->get(); ?>
+                                <div id="comment_post_id_{{ $post->id }}">
                                 @foreach ($comments as $comment)
                                 <?php $comment_info = DB::table('basic_infos')->where('user_id', $comment->user_id)->first() ?>
                                 <div id="comment_id_{{ $comment->id }}">
@@ -99,6 +100,7 @@
                                 @endif
                                 </div>
                                 @endforeach
+                                </div>
                             </div>
                         </div>
 
@@ -146,15 +148,18 @@
 
         function newComment(id){
             event.preventDefault();
+            content = document.getElementById('comment_content_'+id).value;
             $.ajax({
                 url: "{{ URL::route('comment-post') }}",
                 type: 'POST',
                 data: {
                     'post_id': id,
-                    'content': document.getElementById('comment_content_'+id).value
+                    'content': content
                 },
                 success: function(result) {
-                    $.notify(result, "error");       
+                    $.notify(result['message'], "error");       
+                    //alert(content);
+                    $('#comment_post_id_'+id).append('<div id="comment_id_'+id+'"><div class="comment_div col-sm-12 col-md-12 container-fluid"><div class="col-xs-2 col-md-2"><img src="img/icons/default-user.jpg" alt="Compas" class="img-responsive"></div><div class="col-xs-10 col-md-10">'+content+'</div></div><div class="col-sm-12 col-md-12 container-fluid"><div class="col-xs-2 col-md-2"><span class="fui-user"></span> | '+result["firstname"]+' '+result["lastname"]+'</div><div class="col-xs-10 col-md-10"><span class="fui-time"></span> | '+result["created_at"]+'</div></div><hr><div class="row"><div class="col-sm-12 col-md-3"><a class="btn btn-danger" onclick="deleteComment('+id+')"><span class="fui-trash"> | Delete Comment</span></a></div></div></div>');
                 },
                 error: function(xhr, status, error){
 				    var err = eval("(" + xhr.responseText + ")");

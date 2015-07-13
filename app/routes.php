@@ -108,12 +108,6 @@ Route::group(array('before' => 'auth'), function() {
 				'uses' => 'PostController@createPost'
 		));
 
-        /* Create a new Comment (POST) */
-        Route::post('/comments/create', 
-            array('as' => 'comment-post', 
-            'uses' => 'CommentController@createComment'
-        ));
-
 		### Admin
 		/* Events Questions Answers Page (POST) */
 		Route::post('/admin/eventmanagement', 
@@ -151,6 +145,11 @@ Route::group(array('before' => 'auth'), function() {
 
 	});
 
+    /* Create a new Comment (POST) */
+    Route::post('/comments/create', 
+        array('as' => 'comment-post', 
+        'uses' => 'CommentController@createComment'
+    ));
 
 	/* Sign out (GET) */
 	Route::get('/account/signout', 

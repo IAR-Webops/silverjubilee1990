@@ -25,7 +25,15 @@ class CommentController extends BaseController {
                 'content'			=> $content,
             ));
 
-            return "Successfully commented";
+            $info = DB::table('basic_infos')->where('user_id', Auth::id())->first();
+            $time = new DateTime();
+
+            $res['message'] = "Successfully commented";
+            $res['created_at'] = $time->format('Y-m-d H:i:s');
+            $res['firstname'] = $info->firstname;
+            $res['lastname'] = $info->lastname;
+
+            return $res;
         }
     }
 
