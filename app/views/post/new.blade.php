@@ -5,14 +5,14 @@
     <div class="col-sm-12 col-md-11">
           <h4>New Blog Post</h4>        	
           <hr>
-          <form action="{{ URL::route('create-blog-post') }}" class="form-horizontal" role="form" method="post">
+          <form action="{{ URL::route('create-blog-post') }}" id="new_post_form" class="form-horizontal" role="form" method="post">
             <!-- Field - Parent's Name -->
             <div class="form-group">
               <div class="col-sm-12 col-md-12">
                 <input type="text" class="form-control" name="title" placeholder="Title *" value="{{ $post->title }}" required>
               </div>
               <div class="col-sm-12 col-md-12">
-                <input type="text" class="form-control" name="content" placeholder="Content *" value="{{ $post->content }}">
+                <textarea class="form-control" id="content" form="new_post_form" name="content" placeholder="Content *" value="{{ $post->content }}"></textarea>
               </div>             
             </div>
             <!-- START - Permanent Fields -->
@@ -38,7 +38,9 @@
 
 @section('jsmainbodycontent')
 
-<script type="text/javascript">
+<script src="//cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
 </script>
 
 @stop
