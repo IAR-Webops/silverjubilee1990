@@ -15,7 +15,7 @@
                   <div class="col-sm-12">
                     @foreach ($posts as $post)
 
-                        <div class="tile" id="post_id_{{ $post->id }}">
+                        <div class="tile post_div" id="post_id_{{ $post->id }}">
                             <div class="row">
                                 <div class="col-sm-12 col-md-4">
                                     <img src="img/icons/svg/gift-box.svg" alt="Compas" class="tile-image big-illustration">						    		
@@ -49,8 +49,32 @@
                                 </div>
                             @endif
                                 <div class="col-sm-12 col-md-4">
-                                    <a class="btn btn-primary" href="{{ URL::route('new-post-blog') }}"><span class="fui-chat"> | Comments</span></a>
+                                    <a class="btn btn-primary" onclick="showComments({{ $post->id }})"><span class="fui-chat"> | Comments</span></a>
                                 </div>
+                            </div>
+                            <div class="row comments_container_{{ $post->id }} container-fluid" style="display:none;">
+                            <hr>
+                                Comments:   
+                                <hr>
+                                <div class="new_comment_div">
+                                    <form action="#" onsubmit="newComment({{ $post->id }});" class="form-horizontal" role="form" method="POST">
+                                        <div class="form-group">
+                                            <div class="col-sm-12 col-md-8">
+                                                <input type="textarea" class="form-control" id="comment_content_{{ $post->id }}" name="content" placeholder="Comment *" required>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4">
+                                                <input type="submit" class="btn btn-primary" name="submit" value="submit">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <hr>
+                                <?php $comments = DB::table('comments')->where('post_id', $post->id)->get(); ?>
+                                @foreach ($comments as $comment)
+                                <div class="comment_div col-xs-10 col-md-10">
+                                    $comment->content                                    
+                                </div>
+                                @endforeach
                             </div>
                         </div>
 
@@ -84,5 +108,34 @@
 				}
 			});
 		}
+        </script>
+
+        <script type="text/javascript">
+
+        function showComments(id) {
+            $('.comments_container_'+id).slideDown();
+        }
+
+        </script>
+
+        <script type="text/javascript">
+
+        function newComment(id){
+            event.preventDefault();
+            $.ajax({
+                url: "{{ URL::route('comment-post') }}",
+                type: 'POST',
+                data: {
+                    'post_id': id,
+                    'content': document.getElementById('comment_content_'+id).value
+                },
+                success: function(result) {
+                    $.notify(result, "error");       
+                },
+                error: function(xhr, status, error){
+                    $.notify("Unable to comment. Contact Webops Team", "error");
+                }
+            });
+        }
 	</script>
 @stop
