@@ -4,8 +4,6 @@ class CommentController extends BaseController {
 
     public function createComment(){
         
-        Log::info(Input:get('post_id'));
-        Log::info(Input:get('content'));
         $validator = Validator::make(Input::all(),
             array(
                 'post_id' 		=> 'required',
@@ -14,7 +12,7 @@ class CommentController extends BaseController {
         );
 
         if($validator->fails()) {
-            return "Please fill the content properly"
+            return "Please fill the content properly";
         } else {
 			$user_id 				= Auth::id();
 
@@ -30,6 +28,28 @@ class CommentController extends BaseController {
             return "Successfully commented";
         }
     }
+
+    public function deleteComment(){
+
+        $user_id = Auth::id();
+        $comment_id = Input::get('comment_id');
+
+        $comment = DB::table('comments')
+        ->where('id', $comment_id)
+        ->where('user_id', $user_id)->first();
+
+        if (!is_null($comment)){
+            DB::table('comments')
+            ->where('id', $comment_id)
+            ->where('user_id', $user_id)
+            ->delete();
+
+            return "Comment deleted";
+        } else {
+            return "Requested comment doesn't exist";
+        }
+    }
+
 }
 
 ?>

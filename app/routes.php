@@ -176,6 +176,12 @@ Route::group(array('before' => 'auth'), function() {
             'uses' => 'PostController@deletePost'
         ));
 
+    /* Comment deleteion (DELETE) */
+    Route::delete('/comments/delete',
+        array('as' => 'blog-comment-delete',
+            'uses' => 'CommentController@deleteComment'
+        ));
+
 	/* Home Page (GET) */
 	Route::get('/', 
 	  array('as' => 'home', 

@@ -4,7 +4,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12 col-md-offset-3 col-md-6">
+                <div class="col-sm-12 col-md-offset-2 col-md-8">
                   <h4 class="text-center">Blog Home</h4>        	
                   <hr>
                       <div class="col-sm-6 col-md-4">
@@ -63,7 +63,7 @@
                                                 <input type="textarea" class="form-control" id="comment_content_{{ $post->id }}" name="content" placeholder="Comment *" required>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
-                                                <input type="submit" class="btn btn-primary" name="submit" value="submit">
+                                                <input type="submit" class="btn btn-primary" name="submit" value="Submit">
                                             </div>
                                         </div>
                                     </form>
@@ -71,8 +71,32 @@
                                 <hr>
                                 <?php $comments = DB::table('comments')->where('post_id', $post->id)->get(); ?>
                                 @foreach ($comments as $comment)
-                                <div class="comment_div col-xs-10 col-md-10">
-                                    $comment->content                                    
+                                <?php $comment_info = DB::table('basic_infos')->where('user_id', $comment->user_id)->first() ?>
+                                <div id="comment_id_{{ $comment->id }}">
+                                <div class="comment_div col-sm-12 col-md-12 container-fluid">
+                                    <div class="col-xs-2 col-md-2">
+                                        <img src="img/icons/default-user.jpg" alt="Compas" class="img-responsive">						    		
+                                    </div>
+                                    <div class="col-xs-10 col-md-10">
+                                        {{ $comment->content }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 container-fluid">
+                                    <div class="col-xs-2 col-md-2">
+                                        <span class="fui-user"></span> | {{ $comment_info->firstname }} {{ $comment_info->lastname }}
+                                    </div>
+                                    <div class="col-xs-10 col-md-10">
+                                        <span class="fui-time"></span> | {{$comment->created_at}}
+                                    </div>
+                                </div>
+                                <hr>
+                                @if ($comment->user_id == Auth::id())
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-3">
+                                        <a class="btn btn-danger" onclick="deleteComment({{ $comment->id }})"><span class="fui-trash"> | Delete Comment</span></a>
+                                    </div>
+                                </div>
+                                @endif
                                 </div>
                                 @endforeach
                             </div>
@@ -113,7 +137,7 @@
         <script type="text/javascript">
 
         function showComments(id) {
-            $('.comments_container_'+id).slideDown();
+            $('.comments_container_'+id).slideToggle();
         }
 
         </script>
@@ -133,9 +157,37 @@
                     $.notify(result, "error");       
                 },
                 error: function(xhr, status, error){
+				    var err = eval("(" + xhr.responseText + ")");
+				    alert(err.Message);
+				    alert(xhr.responseText);
                     $.notify("Unable to comment. Contact Webops Team", "error");
                 }
             });
+        }
+
+        </script>
+
+        <script type="text/javascript">
+
+        function deleteComment(id){
+			$.ajax({
+			    url: "{{ URL::route('blog-comment-delete') }}",
+			    type: 'DELETE',
+			    data: "comment_id="+id,
+			    success: function(result) {
+			        // Do something with the result
+					$.notify(result ,"error");	        
+					$("#comment_id_"+id).fadeOut();
+					//$.notify("Under Construction " + id ,"error");	        
+			    },
+			    error: function(xhr, status, error) {
+				  //var err = eval("(" + xhr.responseText + ")");
+				  //alert(err.Message);
+				  //alert(xhr.responseText);
+					$.notify("Unable to remove. Contact Webops Team" ,"error");	        
+
+				}
+			});
         }
 	</script>
 @stop
