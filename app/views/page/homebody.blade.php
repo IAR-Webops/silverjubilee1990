@@ -4,8 +4,11 @@
 
 	<p>Hello {{ $basic_info->firstname }},</p>	
 	<p>Welcome to <strong>Silver Jubilee Portal</strong></p>
-	<p>The purpose of this app is to help you to stay in touch with insti forever. <br>
-	Please fill in your details by choosing the forms from the menu on the top right under your roll number.</p> 
+	<p>Kindly Update your information by going to the links below:<br>
+	<strong><a href="{{ URL::route('basic-info') }}">Basic Information</a></strong><br>
+	<strong><a href="{{ URL::route('home-info') }}">Home Information</a></strong><br>	
+	You can update your details later by choosing the forms from the menu on the top right
+	 under your roll number.</p> 
 	<p>We would really appriciate if you spread a word about this to your friends too.</p>
 	<p>With warm regards,<br>
 	I&AR Team</p>

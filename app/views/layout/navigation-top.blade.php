@@ -16,6 +16,7 @@
             -->
             <li><a href="{{ URL::route('post-index') }}"><span class="fui-new"></span> | Blog<span class="navbar-unread">1</span></a></li>
             <li><a href="{{ URL::route('about-us') }}">About Us</a></li>
+            <li><a href="{{ URL::route('search') }}">Search</a></li>            
            </ul>
            <div class="col-sm-12 col-md-4">
           <form class="navbar-form navbar-left" action="#" role="search">

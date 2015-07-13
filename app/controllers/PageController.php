@@ -1251,4 +1251,16 @@ class PageController extends BaseController {
 		return $searchboxvalues;
 	}
 
+	/* Search (GET) */
+	public function getSearch()
+	{
+		return View::make('page.search');						
+	}
+
+	/* Search (POST) */
+	public function postSearch()
+	{
+		return "Test";						
+	}
+
 }

@@ -120,6 +120,13 @@ Route::group(array('before' => 'auth'), function() {
 			array('as'=>'admin-events-name-edit-post', 'uses'=>'PageController@postAdminEventsNameEdit'
 		));
 
+		/* Search (POST) */
+		Route::post('/search', 
+		  array('as' => 'search-post', 
+		        'uses' => 'PageController@postSearch'
+		));
+
+
 	});
 
 	/* CSRF protection AJAX */
@@ -281,6 +288,12 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/searchbox', 
 	  array('as' => 'search-box', 
 	        'uses' => 'PageController@postSearchBox'
+	));
+
+	/* Search (GET) */
+	Route::get('/search', 
+	  array('as' => 'search', 
+	        'uses' => 'PageController@getSearch'
 	));
 
 });
