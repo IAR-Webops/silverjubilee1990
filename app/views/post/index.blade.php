@@ -18,7 +18,19 @@
                         <div class="tile post_div" id="post_id_{{ $post->id }}">
                             <div class="row">
                                 <div class="col-sm-12 col-md-4">
-                                    <img src="img/icons/svg/gift-box.svg" alt="Compas" class="tile-image big-illustration">						    		
+                                    <?php $fb_pic = DB::table('facebook_users')->where('user_id', $post->user_id)->pluck('facebook_picture'); ?>
+                                    <?php $google_pic = DB::table('googleplus_users')->where('user_id', $post->user_id)->pluck('googleplus_picture'); ?>
+                                    <?php $linkedin_pic = DB::table('linkedin_users')->where('user_id', $post->user_id)->pluck('linkedin_picture'); ?>
+                                    @if (!is_null($fb_pic))
+                                        <?php $pic_link = $fb_pic; ?>
+                                    @elseif (!is_null($google_pic))
+                                        <?php $pic_link = $google_pic; ?>
+                                    @elseif (!is_null($linkedin_pic))
+                                        <?php $pic_link = $linkedin_pic; ?>
+                                    @else
+                                        <?php $pic_link = "img/icons/default-user.jpg"; ?>
+                                    @endif
+                                    <img src={{ $pic_link }} alt="Compas" class="tile-image big-illustration">						    		
                                 </div>	
                                 <div class="col-sm-12 col-md-8">
                                     <h3 class="tile-title" style="margin-top:20px;">{{$post->title}}</h3>
@@ -76,7 +88,19 @@
                                 <div id="comment_id_{{ $comment->id }}">
                                 <div class="comment_div col-sm-12 col-md-12 container-fluid">
                                     <div class="col-xs-2 col-md-2">
-                                        <img src="img/icons/default-user.jpg" alt="Compas" class="img-responsive">						    		
+                                    <?php $fb_pic = DB::table('facebook_users')->where('user_id', $comment->user_id)->pluck('facebook_picture'); ?>
+                                    <?php $google_pic = DB::table('googleplus_users')->where('user_id', $comment->user_id)->pluck('googleplus_picture'); ?>
+                                    <?php $linkedin_pic = DB::table('linkedin_users')->where('user_id', $comment->user_id)->pluck('linkedin_picture'); ?>
+                                    @if (!is_null($fb_pic))
+                                        <?php $pic_link = $fb_pic; ?>
+                                    @elseif (!is_null($google_pic))
+                                        <?php $pic_link = $google_pic; ?>
+                                    @elseif (!is_null($linkedin_pic))
+                                        <?php $pic_link = $linkedin_pic; ?>
+                                    @else
+                                        <?php $pic_link = "img/icons/default-user.jpg"; ?>
+                                    @endif
+                                        <img src={{ $pic_link }} alt="Compas" class="img-responsive">						    		
                                     </div>
                                     <div class="col-xs-10 col-md-10">
                                         {{ $comment->content }}
@@ -159,7 +183,7 @@
                 success: function(result) {
                     $.notify(result['message'], "error");       
                     //alert(content);
-                    $('#comment_post_id_'+id).append('<div id="comment_id_'+id+'"><div class="comment_div col-sm-12 col-md-12 container-fluid"><div class="col-xs-2 col-md-2"><img src="img/icons/default-user.jpg" alt="Compas" class="img-responsive"></div><div class="col-xs-10 col-md-10">'+content+'</div></div><div class="col-sm-12 col-md-12 container-fluid"><div class="col-xs-2 col-md-2"><span class="fui-user"></span> | '+result["firstname"]+' '+result["lastname"]+'</div><div class="col-xs-10 col-md-10"><span class="fui-time"></span> | '+result["created_at"]+'</div></div><hr><div class="row"><div class="col-sm-12 col-md-3"><a class="btn btn-danger" onclick="deleteComment('+id+')"><span class="fui-trash"> | Delete Comment</span></a></div></div></div>');
+                    $('#comment_post_id_'+id).append('<div id="comment_id_'+id+'"><div class="comment_div col-sm-12 col-md-12 container-fluid"><div class="col-xs-2 col-md-2"><img src='+result["pic"]+' alt="Compas" class="img-responsive"></div><div class="col-xs-10 col-md-10">'+content+'</div></div><div class="col-sm-12 col-md-12 container-fluid"><div class="col-xs-2 col-md-2"><span class="fui-user"></span> | '+result["firstname"]+' '+result["lastname"]+'</div><div class="col-xs-10 col-md-10"><span class="fui-time"></span> | '+result["created_at"]+'</div></div><hr><div class="row"><div class="col-sm-12 col-md-3"><a class="btn btn-danger" onclick="deleteComment('+id+')"><span class="fui-trash"> | Delete Comment</span></a></div></div></div>');
                 },
                 error: function(xhr, status, error){
 				    var err = eval("(" + xhr.responseText + ")");

@@ -28,10 +28,25 @@ class CommentController extends BaseController {
             $info = DB::table('basic_infos')->where('user_id', Auth::id())->first();
             $time = new DateTime();
 
+            $fb_pic = DB::table('facebook_users')->where('user_id', $user_id)->pluck('facebook_picture'); 
+            $google_pic = DB::table('googleplus_users')->where('user_id', $user_id)->pluck('googleplus_picture'); 
+            $linkedin_pic = DB::table('linkedin_users')->where('user_id', $user_id)->pluck('linkedin_picture'); 
+
+            if (!is_null($fb_pic)){
+                $pic_link = $fb_pic;
+            } elseif (!is_null($google_pic)){
+                $pic_link = $google_pic;
+            } elseif (!is_null($linkedin_pic)){
+                $pic_link = $linkedin_pic;
+            } else {
+                $pic_link = "img/icons/default-user.jpg";
+            }
+
             $res['message'] = "Successfully commented";
             $res['created_at'] = $time->format('Y-m-d H:i:s');
             $res['firstname'] = $info->firstname;
             $res['lastname'] = $info->lastname;
+            $res['pic'] = $pic_link;
 
             return $res;
         }
