@@ -4,17 +4,6 @@ class PostController extends BaseController {
 
     /* New Post Page (GET) */
     public function newPost(){
-
-		$user_id = Auth::id();
-
-		$post = DB::table('posts')->where('user_id', $user_id)->first();
-		if(is_null($post)) {
-			$post = new stdClass();
-			$post->title = "";
-			$post->content = "";
-		} 
-		View::share('post',$post);	
-
         return View::make('post.new');
     }
 
@@ -81,6 +70,68 @@ class PostController extends BaseController {
             return "Post deleted";
         } else {
             return "Requested post doesn't exist";
+        }
+    }
+
+    public function editPost(){
+
+        $user_id = Auth::id();
+        $post_id = Input::get('id');
+
+        $post = DB::table('posts')->where('id', $post_id)->first();
+        if (is_null($post)){
+            return View::make('post.new');
+        } else {
+            View::share('post', $post);
+            return View::make('post.edit');
+        }
+
+    }
+
+    public function saveeditPost(){
+        
+        $validator = Validator::make(Input::all(),
+            array(
+                'title' 		=> 'required',
+                'content'		=> 'required',
+                'id'            => 'required',
+            )
+        );
+
+        //return var_dump(Input::all());
+        if($validator->fails()) {
+            return Redirect::route('post-index')
+                ->withErrors($validator)
+                ->withInput();   // fills the field with the old inputs what were correct
+
+        } else {
+			$user_id 				= Auth::id();
+
+			$title 			= Input::get('title');
+			$content 			= Input::get('content');
+            $post_id        = Input::get('id');
+
+            $post = DB::table('posts')->where('id', $post_id)->first();
+
+            if (!is_null($post)){
+                
+                DB::table('posts')
+                    ->where('id', $post_id)
+                    ->update(array(
+                        'user_id'       => $user_id,
+                        'title'         => $title,
+                        'content'       => $content
+                    ));
+
+                return Redirect::route('post-index')
+                    ->with('globalalertmessage', 'Post Updated')
+                    ->with('globalalertclass', 'success');
+            } else {
+
+                return Redirect::route('post-index')
+                    ->with('glocalalertmessage', 'Post does not exist')
+                    ->with('globalalertclass', 'error');
+            }
         }
     }
 }

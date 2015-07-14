@@ -55,6 +55,7 @@
                                     <a class="btn btn-danger" onclick="deletePost({{ $post->id }})"><span class="fui-trash"> | Delete Post</span></a>
                                 </div>
                                 <div class="col-sm-12 col-md-4">
+                                    <a class="btn btn-primary" href="{{ URL::route('edit-post-blog', ['id' => $post->id] ) }}"><span class="fui-new"> | Edit Post</span></a>
                                 </div>
                             @else
                                 <div class="col-sm-12 col-md-8">

@@ -163,7 +163,18 @@ Route::group(array('before' => 'auth'), function() {
 			'uses' => 'PostController@newPost'
 	));
 
-	/* Posts Index Page (GET) */
+    /* Request to Edit a Post (GET) */
+	Route::get('/posts/edit', 
+		array('as' => 'edit-post-blog',
+			'uses' => 'PostController@editPost'
+	));
+
+    /* Edit a Post (POST) */
+    Route::post('posts/saveedit', 
+        array('as'=>'save-edit-post', 'uses'=>'PostController@saveeditPost'
+    ));
+
+    /* Posts Index Page (GET) */
 	Route::get('/posts', 
 		array('as' => 'post-index',
 			'uses' => 'PostController@index'
